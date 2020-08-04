@@ -1,0 +1,31 @@
+server:
+  port: 8092
+spring:
+  application:
+    name: spring_cloud_config
+  messages:
+    basename: messages
+  profiles:
+    active: jdbc
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring_study?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  #rabbitmq配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: root
+
+
+
+#MyBatis
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.xp.**.domain #类型扫描不持支*需要结合方法
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件 这里没有加* 这是错误一
+  mapperLocations: classpath*:**/*Mapper.xml

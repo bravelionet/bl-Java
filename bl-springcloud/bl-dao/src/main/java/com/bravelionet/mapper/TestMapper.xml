@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bravelionet.dao.TestMapper">
+
+    <select id="selectAll" resultType="java.lang.String">
+        select `KEY` from springcloud_config limit 1
+    </select>
+
+</mapper>

@@ -1,0 +1,26 @@
+server:
+  port: 8091
+
+spring:
+    application:
+      name: bl-springbootadmin-server
+
+  # 配置 security 认证
+    security:
+      user:
+        name:  ${lionet.security.user}
+        password: ${lionet.security.password}
+      boot:
+        admin:
+          client:
+            username: ${lionet.security.user}     #These two are needed so that the client
+            password: ${lionet.security.password}   #can register at the protected server api
+            instance:
+              metadata:
+                user.name: ${lionet.security.user}       #These two are needed so that the server
+                user.password: ${lionet.security.password} #can access the protected client endpoints
+
+lionet:
+  security:
+    user: root
+    password: root

@@ -1,0 +1,75 @@
+server:
+  port: 8095
+
+spring:
+  application:
+    name: bl-springcloud-zookeeper-dubbo-client
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring_study?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  #追踪
+  sleuth:
+    web:
+    client:
+      enabled: true
+
+    sampler:
+    probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+    rabbitmq:
+      queue: zipkin
+      base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+      addresses: 127.0.0.1:5672
+      username: root
+      password: root
+
+  #rabbitmq配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: root
+
+# springboot admin
+  boot:
+    admin:
+      client:
+        url: http://localhost:8091
+        username: ${lionet.security.user}
+        password: ${lionet.security.password}
+
+lionet:
+  security:
+    user: root
+    password: root
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 代表开启所有健康检查; management.health.*.enabled=false
+  health:
+    # 禁用 redis 健康检查
+    redis:
+      enabled: false
+
+
+
+# 注意 此配置不能放入 bootstrap.yml
+dubbo:
+  application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+    name: lionetClinet
+  protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+    name: dubbo
+    port: 20880
+  registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+    address: zookeeper://localhost:2181
+  consumer:
+    timeout: 2000 # RPC 远程调用超时时间, 单位:毫秒
+  scan: com.bravelionet.sevice  #服务暴露与发现消费所在的package
+

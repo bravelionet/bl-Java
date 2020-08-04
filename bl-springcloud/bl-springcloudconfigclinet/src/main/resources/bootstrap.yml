@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring_cloud_config_client
+  cloud:
+    config:
+      name: spring_cloud_config_client #对应configserver Url中的{application}  加载类 : ConfigServicePropertySourceLocator
+      default-label: master
+      profile: default #配置环境，对应config server Url中的{profile}
+      label: master #配置分支(不配置则默认：git则是master,svn则是trunk)，
+      uri: http://127.0.0.1:8092/ #配置中心地址
+
+     # http://127.0.0.1:8092/{name}/{profile}/{label}
+     # http://127.0.0.1:8092/{spring_cloud_config_clinet}/{default}/{master}
+     # spring_cloud_config_client   default   master
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh #// 刷新端点
+
