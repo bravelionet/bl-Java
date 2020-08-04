@@ -43,7 +43,7 @@
         <security-starter>2.1.7.RELEASE</security-starter>
         <web-starter>2.1.7.RELEASE</web-starter>
         <websocket-starter>2.1.7.RELEASE</websocket-starter>
-        <spring-cloud-config-server>2.1.5.RELEASE</spring-cloud-config-server>
+        <spring-cloud-config-server>2.2.0.RELEASE</spring-cloud-config-server>
         <mysql-connector-java-version>8.0.17</mysql-connector-java-version>
         <mybatis-version>3.4.6</mybatis-version>
         <springcloudbus_amqp>2.1.3.RELEASE</springcloudbus_amqp>
