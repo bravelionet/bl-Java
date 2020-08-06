@@ -10,7 +10,7 @@
         <module>bl-springbootadmin</module>
         <module>bl-springcloudconfig</module>
         <module>bl-springcloudgateway</module>
-        <module>bl-springcloudsecurity</module>
+        <module>bl-springboot-security</module>
         <module>bl-springoverallstystem</module>
         <module>bl-springcloudconfigclinet</module>
         <module>bl-springcloud-zookeeper-dubbo-server</module>
@@ -40,7 +40,7 @@
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
         <aop-starter>2.1.7.RELEASE</aop-starter>
         <redis-starter>2.1.7.RELEASE</redis-starter>
-        <security-starter>2.1.7.RELEASE</security-starter>
+        <security-starter>2.2.5.RELEASE</security-starter>
         <web-starter>2.1.7.RELEASE</web-starter>
         <websocket-starter>2.1.7.RELEASE</websocket-starter>
         <spring-cloud-config-server>2.1.5.RELEASE</spring-cloud-config-server>
