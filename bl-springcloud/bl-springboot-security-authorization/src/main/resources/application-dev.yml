@@ -1,5 +1,5 @@
 server:
-  port: 8094
+  port: 8095
   #servlet:
   #  context-path:  # 配置公共资源符,默认 /
 spring:

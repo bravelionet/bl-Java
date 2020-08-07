@@ -11,6 +11,7 @@
         <module>bl-springcloudconfig</module>
         <module>bl-springcloudgateway</module>
         <module>bl-springboot-security</module>
+        <module>bl-springboot-security-authorization</module>
         <module>bl-springoverallstystem</module>
         <module>bl-springcloudconfigclinet</module>
         <module>bl-springcloud-zookeeper-dubbo-server</module>
