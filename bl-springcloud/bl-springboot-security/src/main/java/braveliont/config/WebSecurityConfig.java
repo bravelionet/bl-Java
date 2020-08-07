@@ -71,8 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/view-login") // 自己的登录页,spring security以重定向方式跳转到 /view-login
                 .loginProcessingUrl("/login") // 标识处理登录的 URL( security 提供默认处理 路径,前端请求的地址)
              //   .successHandler(new ForwardAuthenticationSuccessHandler("/login-success?status=true"));
-
-                 .defaultSuccessUrl("/login-success",true);//自定义登录成功的页面地址
+                 .defaultSuccessUrl("/login-success");//自定义登录成功的页面地址
 
 
     }
