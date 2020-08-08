@@ -35,29 +35,48 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.bravelionet</groupId>
+            <artifactId>bl-api</artifactId>
+            <version>${bl-springcloud-jar-version}</version>
+        </dependency>
+
 
 
     </dependencies>
 
 
-    <!-- 配置 扫描 Mapper 包-->
+  <!--  &lt;!&ndash; 配置 扫描 Mapper 包&ndash;&gt;
     <build>
         <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>com.bravelionet.mapper/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>com.bravelionet.mapper/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
         </resources>
     </build>
-
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

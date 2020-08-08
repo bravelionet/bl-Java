@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bravelionet.dao.security.PermissionMapper">
+
+    <select id="queryByIds" resultType="com.bravelionet.domain.security.Permission">
+        select * from permission where id in
+        <foreach collection="permissionIdList" item="permissionId" separator="," open="(" close=")">
+            #{permissionId}
+        </foreach>
+    </select>
+</mapper>

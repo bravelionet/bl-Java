@@ -1,12 +1,31 @@
 server:
-  port: 8095
+  port: 8094
   #servlet:
   #  context-path:  # 配置公共资源符,默认 /
 spring:
   application:
     name: bl-springboot-security
 
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring_study?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: 123
+    password: 123
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+
   mvc:
     view:
       prefix: /view/
       suffix: .html
+
+
+
+#MyBatis
+mybatis:
+  # 搜索指定包别名
+  #  typeAliasesPackage: com.bravelionet.domain #类型扫描不持支*需要结合方法
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件 这里没有加* 这是错误一
+  mapper-locations: classpath*:com/bravelionet/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

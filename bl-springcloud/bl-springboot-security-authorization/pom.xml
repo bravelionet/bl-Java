@@ -31,13 +31,22 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--thymeleaf-->
+       <!-- &lt;!&ndash;thymeleaf&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.bravelionet</groupId>
+            <artifactId>bl-api</artifactId>
+            <version>${bl-springcloud-jar-version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.bravelionet</groupId>
+            <artifactId>bl-dao</artifactId>
+            <version>${bl-springcloud-jar-version}</version>
+        </dependency>
 
 
     </dependencies>
