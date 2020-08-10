@@ -22,6 +22,30 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>Greenwich.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.interceptor</groupId>
+            <artifactId>javax.interceptor-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -55,16 +79,6 @@
             <version>${springboot-admin.version}</version>
         </dependency>
 
-        <!-- sleuth -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <!-- zipkin 日志追踪-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-        </dependency>
 
         <!-- Eureka 客户端-->
         <dependency>
@@ -100,46 +114,40 @@
         </dependency>
 
 
-        <!-- 添加 undertow 替换 tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
 
 
         <!-- 本 工程依赖包 -->
         <dependency>
             <groupId>com.bravelionet</groupId>
             <artifactId>bl-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${bl-springcloud-jar-version}</version>
         </dependency>
 
-        <!-- jar 包引入 -->
         <dependency>
             <groupId>com.bravelionet</groupId>
             <artifactId>bl-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${bl-springcloud-jar-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bravelionet</groupId>
+            <artifactId>bl-dao</artifactId>
+            <version>${bl-springcloud-jar-version}</version>
         </dependency>
 
-
-        <!-- 剔除 springboot 内嵌 Tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
