@@ -17,6 +17,8 @@
         <module>bl-springcloud-zookeeper-dubbo-server</module>
         <module>bl-springcloud-zookeeper-dubbo-client</module>
         <module>bl-springboot-zipkin-server</module>
+        <module>bl-springcloud-eureka-server</module>
+        <module>bl-springcloud-oauth2-authorization-server</module>
 
     </modules>
     <parent>
