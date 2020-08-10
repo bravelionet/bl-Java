@@ -1,0 +1,88 @@
+server:
+  port: 9093
+
+spring:
+  application:
+    name: bl-springcloud-oauth2-authorization-client
+
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: 123
+    password: 123
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+
+  mvc:
+    view:
+      prefix: /view/
+      suffix: .html
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:8091
+        username: ${lionet.security.user}
+        password: ${lionet.security.password}
+
+lionet:
+  security:
+    user: Lionet
+    password: Lionet
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 代表开启所有健康检查; management.health.*.enabled=false
+  health:
+    # 禁用 redis 健康检查
+    redis:
+      enabled: false
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:32002/eureka
+    initial-instance-info-replication-interval-seconds: 10 #InstanceInfoReplicator 将实例信息变更同步到 Eureka Server的初始延迟时间 ，默认为40秒
+    registry-fetch-interval-seconds: 5 #从注册中心拉去服务的频率，默认30s
+    eureka-server-connect-timeout-seconds: 20 # http 连接超时时间，默认为5秒，这里设置为20秒
+  instance:
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    lease-renewal-interval-in-seconds: 10 #默认心跳30s一次
+    lease-expiration-duration-in-seconds: 15 #默认90s，设置为15s一次
+
+feign:
+  # feign启用hystrix，才能熔断、降级
+  # hystrix:
+  # enabled: true
+  # 启用 okhttp 关闭默认 httpclient
+  httpclient:
+    enabled: false #关闭httpclient
+    # 配置连接池
+    max-connections: 3000 #feign的最大连接数
+    max-connections-per-route: 3000 #fegin单个路径的最大连接数
+  okhttp:
+    enabled: true
+  # 请求与响应的压缩以提高通信效率
+  compression:
+    request:
+      enabled: true
+      min-request-size: 2048
+      mime-types: text/xml,application/xml,application/json
+    response:
+      enabled: true
+
+
+#MyBatis
+mybatis:
+  # 搜索指定包别名
+  #  typeAliasesPackage: com.bravelionet.domain #类型扫描不持支*需要结合方法
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件 这里没有加* 这是错误一
+  mapper-locations: classpath*:com/bravelionet/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
