@@ -4,15 +4,23 @@ server:
 spring:
   application:
     name: bl-springcloud-oauth2-authorization-system
+  main:
+    allow-bean-definition-overriding: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: 111
+    url: jdbc:mysql://127.0.0.1:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: 123
     password: 1234
     driverClassName: com.mysql.cj.jdbc.Driver
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
 
-  mvc:
+
+
+    mvc:
     view:
       prefix: /view/
       suffix: .html
@@ -23,6 +31,23 @@ spring:
         url: http://localhost:8091
         username: ${lionet.security.user}
         password: ${lionet.security.password}
+
+  #追踪
+  sleuth:
+    web:
+    client:
+      enabled: true
+
+    sampler:
+    probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+    rabbitmq:
+      queue: zipkin
+      base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+      addresses: 127.0.0.1:5672
+      username: Lionet
+      password: Lionet.123
 
 lionet:
   security:
@@ -53,7 +78,6 @@ eureka:
     prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
     lease-renewal-interval-in-seconds: 10 #默认心跳30s一次
     lease-expiration-duration-in-seconds: 15 #默认90s，设置为15s一次
-
 
 feign:
   # feign启用hystrix，才能熔断、降级

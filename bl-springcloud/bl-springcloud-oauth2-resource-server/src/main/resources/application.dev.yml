@@ -5,17 +5,36 @@ spring:
   application:
     name: bl-springcloud-oauth2-resource-server
 
+
+
   datasource:
-    url: jdbc:mysql://localhost:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: 111
+    url: jdbc:mysql://127.0.0.1:3306/spring_study?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: 123
     password: 1234
     driverClassName: com.mysql.cj.jdbc.Driver
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
 
-  mvc:
-    view:
-      prefix: /view/
-      suffix: .html
+  #追踪
+  sleuth:
+    web:
+    client:
+      enabled: true
+
+    sampler:
+    probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+    rabbitmq:
+      queue: zipkin
+      base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+      addresses: 127.0.0.1:5672
+      username: 123
+      password: 1234
+
 
   boot:
     admin:
@@ -54,7 +73,6 @@ eureka:
     lease-renewal-interval-in-seconds: 10 #默认心跳30s一次
     lease-expiration-duration-in-seconds: 15 #默认90s，设置为15s一次
 
-
 feign:
   # feign启用hystrix，才能熔断、降级
   # hystrix:
@@ -76,13 +94,3 @@ feign:
     response:
       enabled: true
 
-
-#MyBatis
-mybatis:
-  # 搜索指定包别名
-  #  typeAliasesPackage: com.bravelionet.domain #类型扫描不持支*需要结合方法
-  # 配置mapper的扫描，找到所有的mapper.xml映射文件 这里没有加* 这是错误一
-  mapper-locations: classpath*:com/bravelionet/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
