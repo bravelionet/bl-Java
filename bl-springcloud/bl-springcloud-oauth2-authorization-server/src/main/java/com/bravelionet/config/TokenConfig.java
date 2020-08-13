@@ -43,7 +43,7 @@ public class TokenConfig {
     /**
      * @Author: Lionet
      * @Date 2020/8/13 13:52
-     * @Description 配置 Jwt
+     * @Description 配置 Jwt,生成策略
      * @Param:
      * @Return:
      */
@@ -53,6 +53,21 @@ public class TokenConfig {
      converter.setSigningKey(SIGNING_KEY); //对称秘钥，资源服务器使用该秘钥来验证
      return converter;
      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -36,14 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @Param:
      * @Return:
      */
-    @Bean
+   /* @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         // User 是 Security包下
         manager.createUser(User.withUsername("root").password(passwordEncoder().encode("root")).authorities("root", "admin").build());
         manager.createUser(User.withUsername("admin").password(passwordEncoder().encode("admin")).authorities("admin").build());
         return manager;
-    }
+    }*/
 
     /**
      * @Author: Lionet

@@ -3,6 +3,7 @@ package com.bravelionet.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
@@ -74,6 +76,11 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     JwtAccessTokenConverter accessTokenConverter;
 
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    
+    
+
     /**
      * @Author: Lionet
      * @Date 2020/8/10 11:51
@@ -87,10 +94,11 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
      * @Param:
      * @Return:
      */
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
-        clients.inMemory()//  使用in‐memory存储(内存方式)
+      /*  clients.inMemory()//  使用in‐memory存储(内存方式)
                 .withClient("bl_client")//  允许谁来申请令牌, 客户端 Id
                 .secret(new BCryptPasswordEncoder().encode("bl_secret")) // 客户端密钥
                 .resourceIds("res1") // 客户端可以访问的资源列表(资源服务的Id)
@@ -99,8 +107,31 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                         "implicit", "refresh_token")//  该client允许的授权类型 authorization_code,password,refresh_token,implicit,client_credentials
                 .scopes("all")//  允许的授权范围(客户端的权限)
                 .autoApprove(false)// false 在申请授权码模式,就会跳转到授权页面
-                .redirectUris("http://www.baidu.com");//加上验证回调地址
+                .redirectUris("http://www.baidu.com");//加上验证回调地址*/
+        clients.withClientDetails(clientDetailsService);
     }
+
+
+
+    /**
+     * @Author: Lionet
+     * @Date 2020/8/13 14:40
+     * @Description 客户端配置信息存储DB, 配置数据库连接
+     * @Param:
+     * @Return:
+     */
+    @Bean
+    public ClientDetailsService clientDetailsService(DataSource dataSource) {
+        ClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        ((JdbcClientDetailsService)
+                clientDetailsService).setPasswordEncoder(passwordEncoder);
+       
+        return clientDetailsService;
+    }
+
+
+
+
 
     /**
      * @Author: Lionet
@@ -127,7 +158,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .authenticationManager(authenticationManager)// 认证管理器，当你选择了资源所有者密码（password）授权类型
                 .authorizationCodeServices(authorizationCodeServices) // 授权码类型模式
                 .tokenServices(tokenService()) // 设置令牌 服务
-
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST); // form表单 post请求
     }
 
@@ -150,11 +180,24 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 
     //设置授权码模式的授权码如何存取，暂时采用内存方式
+/*
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
         return new InMemoryAuthorizationCodeServices();
     }
+*/
 
+    /**
+     * @Author: Lionet
+     * @Date 2020/8/13 14:44
+     * @Description 设置授权码模式的授权码如何存取，暂时采用数据库方式
+     * @Param:
+     * @Return:
+     */
+    @Bean
+    public  AuthorizationCodeServices  authorizationCodeServices(DataSource  dataSource)  {
+        return  new  JdbcAuthorizationCodeServices(dataSource);//设置授权码模式的授权码如何存取               
+    }
     /**
      * @Author: Lionet
      * @Date 2020/8/10 12:09

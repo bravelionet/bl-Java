@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestClient {
 
     @GetMapping(value = "/r1")
-    @PreAuthorize("hasAnyAuthority('root')")
+    @PreAuthorize("hasAnyAuthority('manager')")
     public String r1(){
         return "访问资源1";
     }

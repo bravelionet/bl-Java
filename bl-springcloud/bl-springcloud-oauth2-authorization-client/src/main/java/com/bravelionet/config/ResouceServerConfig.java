@@ -27,6 +27,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
     TokenStore tokenStore;
+
     /**
      * @Author: Lionet
      * @Date 2020/8/12 17:02
@@ -37,15 +38,26 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(RESOURCE_ID) // 配置 客户端 ID
-              //  .tokenServices(this.tokenService())
+                //  .tokenServices(this.tokenService())
                 .tokenStore(tokenStore)
                 .stateless(true); // 这些资源上允许基于令牌的身份验证的标志
     }
 
+    /**
+     * @Author: Lionet
+     * @Date 2020/8/13 15:13
+     * @Description 配置安全拦截作用域
+     * @Param:
+     * @Return:
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").access("#oauth2.hasScope('all')")
+                .antMatchers("/**")
+                // 配置 作用域
+                .access(" #oauth2.hasScope('ROLE_ADMIN') " +
+                        "and #oauth2.hasScope('ROLE_USER') " +
+                        " or #oauth2.hasScope('ROLE_API')")
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 配置不会 创建 session
     }
