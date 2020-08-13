@@ -3,7 +3,6 @@ package com.bravelionet.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -17,8 +16,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class TokenConfig {
 
-    // 密钥, 须和 客户端一样
+    // 密钥
     private String SIGNING_KEY = "bl_jwt_token";
+
     /**
      * @Author: Lionet
      * @Date 2020/8/10 12:07
@@ -40,13 +40,6 @@ public class TokenConfig {
     }
 
 
-    /**
-     * @Author: Lionet
-     * @Date 2020/8/13 13:52
-     * @Description 配置 Jwt
-     * @Param:
-     * @Return:
-     */
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
      JwtAccessTokenConverter converter =  new JwtAccessTokenConverter();

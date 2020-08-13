@@ -18,15 +18,17 @@ import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCo
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 /**
  * @Author: Lionet
  * @Date 2020/8/10 13:18
- * @Description
- * 1. 配置客户端详情信息
+ * @Description 1. 配置客户端详情信息
  * 2. 配置令牌服务
  * 3. 配置令牌暴露端点
  * 4. 配置安全策略
@@ -68,18 +70,20 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private TokenStore tokenStore; // 令牌储存策略
 
+    @Autowired
+    JwtAccessTokenConverter accessTokenConverter;
+
 
     /**
      * @Author: Lionet
      * @Date 2020/8/10 11:51
      * @Description 配置客户端详情信息
-     *
+     * <p>
      * 1. 谁来申请令牌
      * 2. 客户端密钥
      * 3. 可以访问的资源列表
      * 4. 授权类型
      * 5. ......
-     *
      * @Param:
      * @Return:
      */
@@ -102,31 +106,30 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
      * @Author: Lionet
      * @Date 2020/8/10 14:11
      * @Description 令牌访问端点配置
-     *  AuthorizationServerEndpointsConfigurer
-     *          .pathMapping()AuthorizationServerEndpointsConfigurer
-     *                         这个配置对象有一个叫做 pathMapping() 的方法用来配置端点URL链接
-     *                             第一个参数： String 类型的，这个端点URL的默认链接。
-     *                             第二个参数： String 类型的，你要进行替代的URL链接
-     *                        可以作为这个 pathMapping() 方法的第一个参数
-     *                             /oauth/authorize ：授权端点。
-     *                             /oauth/token ：令牌端点。
-     *                             /oauth/confirm_access ：用户确认授权提交端点。
-     *                             /oauth/error ：授权服务错误信息端点。
-     *                             /oauth/check_token ：用于资源服务访问的令牌解析端点。
-     *                             /oauth/token_key ：提供公有密匙的端点，如果你使用JWT令牌的话
+     * AuthorizationServerEndpointsConfigurer
+     * .pathMapping()AuthorizationServerEndpointsConfigurer
+     * 这个配置对象有一个叫做 pathMapping() 的方法用来配置端点URL链接
+     * 第一个参数： String 类型的，这个端点URL的默认链接。
+     * 第二个参数： String 类型的，你要进行替代的URL链接
+     * 可以作为这个 pathMapping() 方法的第一个参数
+     * /oauth/authorize ：授权端点。
+     * /oauth/token ：令牌端点。
+     * /oauth/confirm_access ：用户确认授权提交端点。
+     * /oauth/error ：授权服务错误信息端点。
+     * /oauth/check_token ：用于资源服务访问的令牌解析端点。
+     * /oauth/token_key ：提供公有密匙的端点，如果你使用JWT令牌的话
      * @Param:
      * @Return:
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-     endpoints
+        endpoints
                 .authenticationManager(authenticationManager)// 认证管理器，当你选择了资源所有者密码（password）授权类型
                 .authorizationCodeServices(authorizationCodeServices) // 授权码类型模式
                 .tokenServices(tokenService()) // 设置令牌 服务
 
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST); // form表单 post请求
     }
-
 
 
     /**
@@ -144,7 +147,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .allowFormAuthenticationForClients();  //表单认证（申请令牌）
 
     }
-
 
 
     //设置授权码模式的授权码如何存取，暂时采用内存方式
@@ -170,6 +172,11 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         defaultTokenServices.setReuseRefreshToken(true);
         // 令牌存储策略
         defaultTokenServices.setTokenStore(tokenStore);
+
+        // 配置 JWT
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
         // 失效时间, 2小时
         defaultTokenServices.setAccessTokenValiditySeconds(7200);
         //   刷新令牌默认有效期3天

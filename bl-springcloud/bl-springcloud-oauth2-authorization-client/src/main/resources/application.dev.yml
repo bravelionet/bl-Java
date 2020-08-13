@@ -6,10 +6,11 @@ spring:
     name: bl-springcloud-oauth2-authorization-client
 
 
+
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: 123
-    password: 123
+    url: jdbc:mysql://localhost:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: 111
+    password: 1234
     driverClassName: com.mysql.cj.jdbc.Driver
 
 
@@ -54,6 +55,7 @@ eureka:
     prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
     lease-renewal-interval-in-seconds: 10 #默认心跳30s一次
     lease-expiration-duration-in-seconds: 15 #默认90s，设置为15s一次
+
 
 feign:
   # feign启用hystrix，才能熔断、降级

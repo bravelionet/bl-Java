@@ -1,15 +1,23 @@
 server:
   port: 9092
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
+    use-forward-headers: true
 
 spring:
   application:
     name: bl-springcloud-oauth2-authorization-server
-
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/user_security?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: 123
-    password: 123
+    password: 1234
     driverClassName: com.mysql.cj.jdbc.Driver
 
 
@@ -48,12 +56,12 @@ eureka:
     service-url:
       defaultZone: http://localhost:32002/eureka
     initial-instance-info-replication-interval-seconds: 10 #InstanceInfoReplicator 将实例信息变更同步到 Eureka Server的初始延迟时间 ，默认为40秒
-    registry-fetch-interval-seconds: 5 #从注册中心拉去服务的频率，默认30s
+    registry-fetch-interval-seconds: 15 #从注册中心拉去服务的频率，默认30s
     eureka-server-connect-timeout-seconds: 20 # http 连接超时时间，默认为5秒，这里设置为20秒
   instance:
     prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
-    lease-renewal-interval-in-seconds: 10 #默认心跳30s一次
-    lease-expiration-duration-in-seconds: 15 #默认90s，设置为15s一次
+    lease-renewal-interval-in-seconds: 30 #默认心跳30s一次
+    lease-expiration-duration-in-seconds: 30 #默认90s，设置为15s一次
 
 feign:
   # feign启用hystrix，才能熔断、降级
