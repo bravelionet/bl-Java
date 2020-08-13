@@ -20,6 +20,9 @@
         <module>bl-springcloud-eureka-server</module>
         <module>bl-springcloud-oauth2-authorization-server</module>
         <module>bl-springcloud-oauth2-authorization-client</module>
+        <module>bl-springcloud-oauth2-resource-server</module>
+        <module>bl-springcloud-oauth2-authorization-system</module>
+        <module>bl-springcloud-oauth2-gateway-server</module>
 
     </modules>
     <parent>
@@ -42,6 +45,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-gateway-version>2.2.2.RELEASE</spring-gateway-version>
         <aop-starter>2.1.7.RELEASE</aop-starter>
         <redis-starter>2.1.7.RELEASE</redis-starter>
         <security-starter>2.2.5.RELEASE</security-starter>
@@ -82,6 +86,12 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring-gateway-version}</version>
+            </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-server -->
             <dependency>

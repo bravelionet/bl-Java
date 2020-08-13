@@ -1,0 +1,1 @@
+# SpringSecurityOAuth2 资源服务, 测试分布式认证

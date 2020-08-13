@@ -1,0 +1,23 @@
+spring:
+  # 路由配置
+  cloud:
+    gateway:
+      x-forwarded:
+        port-append: true
+        port-enabled: true
+      routes:
+
+        - id: ufriendship
+          uri: "lb://bl-springcloud-oauth2-authorization-system"
+          predicates:
+            - Path=/self/**
+          filters:
+            - StripPrefix=0 #从请求中剥离的参数个数从左到右
+
+
+application:
+  skip-authorization:
+    #不需要检查权限的url
+    skip-auth-urls:
+      - /login/**
+
