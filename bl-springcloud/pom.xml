@@ -23,6 +23,7 @@
         <module>bl-springcloud-oauth2-resource-server</module>
         <module>bl-springcloud-oauth2-authorization-system</module>
         <module>bl-springcloud-oauth2-gateway-server</module>
+        <module>bl-springboot-poi</module>
 
     </modules>
     <parent>
