@@ -45,6 +45,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-boot-version>2.2.5.RELEASE</spring-boot-version>
         <spring-gateway-version>2.2.2.RELEASE</spring-gateway-version>
         <aop-starter>2.1.7.RELEASE</aop-starter>
         <redis-starter>2.1.7.RELEASE</redis-starter>
@@ -71,13 +72,6 @@
     <!--父工程, 注意 : dependencyManagement 管理依赖 -->
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${web-starter}</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -85,6 +79,21 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${web-starter}</version>
+            </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway -->
             <dependency>
