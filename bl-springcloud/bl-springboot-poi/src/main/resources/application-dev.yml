@@ -1,0 +1,61 @@
+server:
+  port: 8092
+
+spring:
+  application:
+    name: bl-springboot-poi
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/spring_study?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  #追踪
+  sleuth:
+    web:
+    client:
+      enabled: true
+
+    sampler:
+    probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+  zipkin:
+    base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+    rabbitmq:
+      queue: zipkin
+      base-url: http://127.0.0.1:9411/ # 指定了 Zipkin 服务器的地址
+      addresses: 127.0.0.1:5672
+      username: root
+      password: root
+
+  #rabbitmq配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: root
+    password: root
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:8091
+        username: ${lionet.security.user}
+        password: ${lionet.security.password}
+
+lionet:
+  security:
+    user: Lionet
+    password: Lionet
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 代表开启所有健康检查; management.health.*.enabled=false
+  health:
+    # 禁用 redis 健康检查
+    redis:
+      enabled: false
+
