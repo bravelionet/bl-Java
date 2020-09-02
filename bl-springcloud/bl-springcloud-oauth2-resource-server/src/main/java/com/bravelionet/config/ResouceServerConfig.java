@@ -51,6 +51,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/actuator/**").permitAll()
+                //.antMatchers("/self/**").permitAll()
                 .antMatchers("/**")
                 // 配置 作用域
                 .access(" #oauth2.hasScope('ROLE_ADMIN') " +
