@@ -51,7 +51,7 @@
         <aop-starter>2.1.7.RELEASE</aop-starter>
         <redis-starter>2.1.7.RELEASE</redis-starter>
         <security-starter>2.2.5.RELEASE</security-starter>
-        <web-starter>2.1.7.RELEASE</web-starter>
+        <web-starter>2.5.12</web-starter>
         <websocket-starter>2.1.7.RELEASE</websocket-starter>
         <spring-cloud-config-server>2.1.5.RELEASE</spring-cloud-config-server>
         <mysql-connector-java-version>8.0.17</mysql-connector-java-version>
